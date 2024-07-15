@@ -21,19 +21,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.model.AppDatabase;
-import com.cleanup.todoc.model.MainViewModel;
-import com.cleanup.todoc.model.MainViewModelFactory;
-import com.cleanup.todoc.model.Project;
-import com.cleanup.todoc.model.ProjectRepository;
-import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.model.TaskRepository;
+import com.cleanup.todoc.model.database.AppDatabase;
+import com.cleanup.todoc.model.viewmodel.MainViewModel;
+import com.cleanup.todoc.model.viewmodel.MainViewModelFactory;
+import com.cleanup.todoc.model.database.entity.Project;
+import com.cleanup.todoc.model.repositories.ProjectRepository;
+import com.cleanup.todoc.model.database.entity.Task;
+import com.cleanup.todoc.model.repositories.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 /**
  * <p>Home activity of the application which is displayed when the user opens the app.</p>
@@ -195,9 +194,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
-                // TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
-
 
                 Task task = new Task(
                         taskProject.getId(),
@@ -206,10 +202,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 );
 
                 addTask(task);
-
-
                 mainViewModel.insertTask(task);
-
                 dialogInterface.dismiss();
             }
             // If name has been set, but project has not been set (this should never occur)

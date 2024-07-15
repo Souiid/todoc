@@ -1,7 +1,10 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.repositories;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.cleanup.todoc.model.database.entity.Task;
+import com.cleanup.todoc.model.database.dao.TaskDao;
 
 import java.util.List;
 import java.util.concurrent.Executor;

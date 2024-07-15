@@ -1,10 +1,10 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.database.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
+
+import com.cleanup.todoc.model.database.entity.Project;
 
 import java.util.List;
 

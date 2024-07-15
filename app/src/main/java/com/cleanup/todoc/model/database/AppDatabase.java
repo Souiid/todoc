@@ -1,4 +1,4 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.database;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -6,6 +6,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import com.cleanup.todoc.model.database.dao.ProjectDao;
+import com.cleanup.todoc.model.database.dao.TaskDao;
+import com.cleanup.todoc.model.database.entity.Project;
+import com.cleanup.todoc.model.database.entity.Task;
 
 import java.util.concurrent.Executors;
 

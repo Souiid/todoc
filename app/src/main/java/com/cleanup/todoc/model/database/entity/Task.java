@@ -1,4 +1,4 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.database.entity;
 
 
 import androidx.annotation.NonNull;

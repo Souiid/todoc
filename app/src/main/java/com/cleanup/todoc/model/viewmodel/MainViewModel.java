@@ -1,10 +1,12 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.viewmodel;
 
-import android.app.Application;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.cleanup.todoc.model.database.entity.Project;
+import com.cleanup.todoc.model.database.entity.Task;
+import com.cleanup.todoc.model.repositories.ProjectRepository;
+import com.cleanup.todoc.model.repositories.TaskRepository;
 
 import java.util.List;
 

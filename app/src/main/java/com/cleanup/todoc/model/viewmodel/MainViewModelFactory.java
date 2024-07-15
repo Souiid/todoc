@@ -1,8 +1,11 @@
-package com.cleanup.todoc.model;
+package com.cleanup.todoc.model.viewmodel;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.cleanup.todoc.model.repositories.ProjectRepository;
+import com.cleanup.todoc.model.repositories.TaskRepository;
 
 public class MainViewModelFactory implements ViewModelProvider.Factory {
     private final ProjectRepository projectRepository;
