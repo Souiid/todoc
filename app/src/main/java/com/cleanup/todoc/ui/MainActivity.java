@@ -2,7 +2,6 @@ package com.cleanup.todoc.ui;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,24 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.model.AppDatabase;
-import com.cleanup.todoc.model.MainViewModel;
-import com.cleanup.todoc.model.MainViewModelFactory;
 import com.cleanup.todoc.model.Project;
-import com.cleanup.todoc.model.ProjectRepository;
 import com.cleanup.todoc.model.Task;
-import com.cleanup.todoc.model.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Executors;
 
 /**
  * <p>Home activity of the application which is displayed when the user opens the app.</p>
@@ -45,18 +36,18 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     /**
      * List of all projects available in the application
      */
-    private List<Project> allProjects;
+    private final Project[] allProjects = Project.getAllProjects();
 
     /**
      * List of all current tasks of the application
      */
     @NonNull
-    private ArrayList<Task> tasks = new ArrayList<>();
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * The adapter which handles the list of tasks
      */
-    private TasksAdapter adapter = new TasksAdapter(tasks, this);
+    private final TasksAdapter adapter = new TasksAdapter(tasks, this);
 
     /**
      * The sort method to be used to display tasks
@@ -98,33 +89,11 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @NonNull
     private TextView lblNoTasks;
 
-    MainViewModel mainViewModel;
-    AppDatabase db;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("aaa", "MainActivity onCreate called");
 
         setContentView(R.layout.activity_main);
-
-        db = AppDatabase.getInstance(this);
-
-        mainViewModel = new ViewModelProvider(this, new MainViewModelFactory( new ProjectRepository(db.projectDao()), new TaskRepository(db.taskDao()))).get(MainViewModel.class);
-
-        mainViewModel.getAllProjects().observe(this, projects -> {
-            allProjects = projects;
-            populateDialogSpinner();
-        });
-
-        mainViewModel.getAllTasks().observe(this, tasks -> {
-            this.tasks = (ArrayList<Task>) tasks;
-            updateTasks();
-        });
-
-
-
-        Log.d("aaa", "Database instance retrieved in MainActivity");
 
         listTasks = findViewById(R.id.list_tasks);
         lblNoTasks = findViewById(R.id.lbl_no_task);
@@ -168,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     @Override
     public void onDeleteTask(Task task) {
         tasks.remove(task);
-        mainViewModel.deleteTask(task);
         updateTasks();
     }
 
@@ -200,15 +168,13 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
 
                 Task task = new Task(
+                        id,
                         taskProject.getId(),
                         taskName,
                         new Date().getTime()
                 );
 
                 addTask(task);
-
-
-                mainViewModel.insertTask(task);
 
                 dialogInterface.dismiss();
             }
@@ -228,9 +194,12 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void showAddTaskDialog() {
         final AlertDialog dialog = getAddTaskDialog();
+
         dialog.show();
+
         dialogEditText = dialog.findViewById(R.id.txt_task_name);
         dialogSpinner = dialog.findViewById(R.id.project_spinner);
+
         populateDialogSpinner();
     }
 
