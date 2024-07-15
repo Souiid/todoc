@@ -20,7 +20,7 @@ import java.util.Comparator;
 )
 public class Task {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
 
     private long projectId;
@@ -30,8 +30,7 @@ public class Task {
 
     private long creationTimestamp;
 
-    public Task(long id, long projectId, @NonNull String name, long creationTimestamp) {
-        this.id = id;
+    public Task(long projectId, @NonNull String name, long creationTimestamp) {
         this.projectId = projectId;
         this.name = name;
         this.creationTimestamp = creationTimestamp;
@@ -39,6 +38,10 @@ public class Task {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getProjectId() {

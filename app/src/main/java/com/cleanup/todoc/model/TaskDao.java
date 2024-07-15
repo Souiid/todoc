@@ -14,17 +14,8 @@ public interface TaskDao {
     @Query("SELECT * FROM tasks")
     List<Task> getAllTasks();
 
-    @Query("SELECT * FROM tasks WHERE id = :id")
-    Task getTaskById(long id);
-
-    @Query("SELECT * FROM tasks WHERE projectId = :projectId")
-    List<Task> getTasksByProjectId(long projectId);
-
     @Insert
-    void insertTask(Task task);
-
-    @Update
-    void updateTask(Task task);
+    long insertTask(Task task);
 
     @Delete
     void deleteTask(Task task);

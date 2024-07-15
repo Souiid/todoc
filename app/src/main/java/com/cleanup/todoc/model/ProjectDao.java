@@ -14,15 +14,6 @@ public interface ProjectDao {
     @Query("SELECT * FROM projects")
     List<Project> getAllProjects();
 
-    @Query("SELECT * FROM projects WHERE id = :id")
-    Project getProjectById(long id);
-
     @Insert
     void insertProject(Project project);
-
-    @Update
-    void updateProject(Project project);
-
-    @Delete
-    void deleteProject(Project project);
 }
