@@ -1,10 +1,10 @@
 package com.cleanup.todoc.model.database.entity;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Comparator;
@@ -16,7 +16,8 @@ import java.util.Comparator;
                 parentColumns = "id",
                 childColumns = "projectId",
                 onDelete = ForeignKey.CASCADE
-        )
+        ),
+        indices = {@Index(value = "projectId")}
 )
 public class Task {
 

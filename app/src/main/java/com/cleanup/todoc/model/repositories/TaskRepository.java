@@ -20,9 +20,7 @@ public class TaskRepository {
     }
 
     public LiveData<List<Task>> getAllTasks() {
-        MutableLiveData<List<Task>> tasks = new MutableLiveData<>();
-        executor.execute(() -> tasks.postValue(taskDao.getAllTasks()));
-        return tasks;
+        return taskDao.getAllTasks();
     }
 
     public void insertTask(Task task) {

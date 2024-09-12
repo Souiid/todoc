@@ -1,5 +1,6 @@
 package com.cleanup.todoc.model.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,11 +14,14 @@ import java.util.List;
 public interface TaskDao {
 
     @Query("SELECT * FROM tasks")
-    List<Task> getAllTasks();
+    LiveData<List<Task>> getAllTasks();
 
     @Insert
     void insertTask(Task task);
 
     @Delete
     void deleteTask(Task task);
+
+    @Query("DELETE FROM tasks")
+    void deleteAllTasks();
 }
